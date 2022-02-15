@@ -1,15 +1,29 @@
 import yagmail
-import os 
-sender = ""
-receiver = """
+import os
+import time
+import schedule
 
 
-subject = "This is a python test"
+def send_email():
+  sender = ""
+  receiver = ""
 
-contents = """
-Hello, This is my first python code for this week.
-""" 
+  subject = "This is a python test"
 
-yag = yagmail.SMTP(user=sender, password=os.getenv("PASSWORD"))
-yag.send(to=receiver,subject=subject, contents=contents)
-print("Email Sent!!!")
+  contents = """
+  Hello, This is my first python code for this week.
+  """
+
+  yag = yagmail.SMTP(user=sender, password=os.getenv("WINPASSWORD"))
+  yag.send(to=receiver,subject=subject, contents=contents)
+  print("Email Sent!!!")
+
+
+schedule.every(1).minutes.do(send_email)
+while True:
+  schedule.run_pending()
+  #time.sleep(1)
+  
+
+
+    
